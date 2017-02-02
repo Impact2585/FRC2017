@@ -1,8 +1,5 @@
 /*
  * Environment.h
- *
- *  Created on: Jan 22, 2017
- *      Author: joshua
  */
 
 #ifndef SRC_ENVIRONMENT_H_

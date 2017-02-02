@@ -1,12 +1,10 @@
 /*
  * InputMethod.h
- *
- *  Created on: Jan 23, 2017
- *      Author: joshua
  */
 
 #ifndef SRC_INPUT_INPUTMETHOD_H_
 #define SRC_INPUT_INPUTMETHOD_H_
+#include "../RobotMap.h"
 
 class InputMethod {
 public:

@@ -1,8 +1,5 @@
 /*
  * Executor.h
- *
- *  Created on: Jan 22, 2017
- *      Author: joshua
  */
 
 #ifndef SRC_EXECUTORS_EXECUTOR_H_

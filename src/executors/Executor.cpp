@@ -1,8 +1,5 @@
 /*
  * Executor.cpp
- *
- *  Created on: Jan 22, 2017
- *      Author: joshua
  */
 #include "Executor.h"
 

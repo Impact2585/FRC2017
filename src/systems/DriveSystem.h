@@ -1,8 +1,5 @@
 /*
  * DriveSystem.h
- *
- *  Created on: Jan 22, 2017
- *      Author: joshua
  */
 
 #ifndef SRC_SYSTEMS_DRIVESYSTEM_H_

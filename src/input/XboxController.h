@@ -1,8 +1,5 @@
 /*
  * XboxController.h
- *
- *  Created on: Jan 23, 2017
- *      Author: joshua
  */
 
 #ifndef SRC_INPUT_XBOXCONTROLLER_H_

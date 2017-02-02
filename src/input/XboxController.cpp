@@ -1,8 +1,5 @@
 /*
  * XboxController.cpp
- *
- *  Created on: Jan 23, 2017
- *      Author: joshua
  */
 
 #include "XboxController.h"
@@ -15,16 +12,22 @@ XboxController::~XboxController() {
 
 }
 
+/**
+ * Gets the value that the driver wants the drivetrain to move forward.
+ */
 double XboxController::getForwardDistance() {
-	return joystick->GetRawAxis(1);
+	return joystick->GetRawAxis(RobotMap::LEFT_Y_AXIS);
 }
 
 double XboxController::getSidewaysDistance() {
-	return joystick->GetRawAxis(3);
+	return joystick->GetRawAxis(RobotMap::RIGHT_X_AXIS);
 }
 
+/**
+ * Gets whether the driver wants to shoot.
+ */
 bool XboxController::shoot() {
-	return joystick->GetRawButton(3);
+	return joystick->GetRawButton(RobotMap::X_BUTTON);
 }
 
 

@@ -1,8 +1,5 @@
 /*
  * Robot.cpp
- *
- *  Created on: Jan 12, 2017
- *      Author: joshua
  */
 #include "Robot.h"
 
@@ -11,6 +8,10 @@ Robot::Robot() {
 }
 
 Robot::~Robot() {
+
+}
+
+void Robot::RobotInit() {
 
 }
 
@@ -34,6 +35,10 @@ void Robot::TeleopPeriodic() {
 }
 
 void Robot::AutonomousPeriodic() {
+
+}
+
+void Robot::DisabledPeriodic() {
 
 }
 
