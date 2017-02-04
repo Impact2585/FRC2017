@@ -19,8 +19,20 @@ double XboxController::getForwardDistance() {
 	return joystick->GetRawAxis(RobotMap::LEFT_Y_AXIS);
 }
 
+/**
+ * Gets the sideways power of which the driver wants to turn.
+ */
 double XboxController::getSidewaysDistance() {
 	return joystick->GetRawAxis(RobotMap::RIGHT_X_AXIS);
+}
+
+/**
+ * Gets whether the driver wants the drive to invert.
+ *
+ * @return the state of the drive toggle button.
+ */
+bool XboxController::toggleDrive() {
+	return joystick->GetRawButton(RobotMap::Y_BUTTON);
 }
 
 /**

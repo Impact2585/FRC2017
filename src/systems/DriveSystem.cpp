@@ -12,6 +12,7 @@
  */
 DriveSystem::DriveSystem(std::shared_ptr<InputMethod> input) : RobotSystem(input), currentRampForward(0) {
 	drivetrain = std::make_unique<RobotDrive>(new Talon(1), new Talon(2), new Talon(3), new Talon(4));
+	invertDriveToggler = std::make_unique<Toggler>();
 }
 
 DriveSystem::~DriveSystem() {
@@ -64,6 +65,11 @@ void DriveSystem::modifyIfInDeadzone(double& val) {
 void DriveSystem::run() {
 	double desiredForwardValue = input->getForwardDistance();
 	double desiredRotateValue = input->getSidewaysDistance();
+	bool shouldInvert = input->toggleDrive();
+	
+	if(invertDriveToggler->checkToggle(shouldInvert))
+		desiredForwardValue *= -1;
+
 	modifyIfInDeadzone(desiredForwardValue);
 	modifyIfInDeadzone(desiredRotateValue);
 	arcadeControl(desiredForwardValue, desiredRotateValue, true);

@@ -6,6 +6,7 @@
 #define SRC_SYSTEMS_DRIVESYSTEM_H_
 #include <RobotDrive.h>
 #include "RobotSystem.h"
+#include "../utils/Toggler.h"
 
 class DriveSystem : public RobotSystem {
 public:
@@ -22,6 +23,9 @@ public:
 private:
 	std::unique_ptr<RobotDrive> drivetrain;
 	double currentRampForward;
+	bool invertDrive;
+	bool invertInput;
+	std::unique_ptr<Toggler> invertDriveToggler;
 };
 
 /**

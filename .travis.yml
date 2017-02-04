@@ -1,0 +1,5 @@
+language: cpp
+sudo: required
+dist: xenial
+install: ./install-dependencies.sh
+script: make

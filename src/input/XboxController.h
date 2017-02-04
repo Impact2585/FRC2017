@@ -15,7 +15,7 @@ public:
 	~XboxController();
 	virtual double getForwardDistance();
 	virtual double getSidewaysDistance();
-
+	virtual bool toggleDrive();
 	virtual bool shoot();
 private:
 	std::unique_ptr<Joystick> joystick;

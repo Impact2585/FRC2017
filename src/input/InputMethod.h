@@ -13,6 +13,7 @@ public:
 
 	virtual double getForwardDistance() = 0;
 	virtual double getSidewaysDistance() = 0;
+	virtual bool toggleDrive() = 0;
 
 	virtual bool shoot() = 0;
 };
