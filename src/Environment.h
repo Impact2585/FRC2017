@@ -10,16 +10,18 @@
 #include "input/XboxController.h"
 #include "input/InputMethod.h"
 #include <memory>
-#include <vector>
+#include <map>
 
 class Environment {
 public:
 	Environment();
 	~Environment();
-	std::vector<std::unique_ptr<RobotSystem>>& getSystems();
+	//std::vector<std::unique_ptr<RobotSystem>>& getSystems();
+	std::map<std::string, std::shared_ptr<RobotSystem>>& getSystems();
 
 private:
-	std::vector<std::unique_ptr<RobotSystem>> systems;
+	//std::vector<std::unique_ptr<RobotSystem>> systems;
+	std::map<std::string, std::shared_ptr<RobotSystem>> systems;
 	std::shared_ptr<InputMethod> input;
 };
 

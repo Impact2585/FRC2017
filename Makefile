@@ -11,9 +11,9 @@ CPPVERSION = -std=c++1y
 
 CPPFlags = -O0 -Og -g3 -Wall -c -fmessage-length=0
 
-INCLUDE = -I../../wpilib/cpp/current/include -I./src/ -I../../wpilib/user/cpp/include -I./wpilib-cpp/include
+INCLUDE = -I../../wpilib/cpp/current/include -I./src/ -I../../wpilib/user/cpp/include -I./wpilib-cpp/include 
 
-LIBS = -L../../wpilib/cpp/current/lib -L../../wpilib/user/cpp/lib -L./wpilib-cpp/lib -Wl,-rpath,/opt/GenICam_v3_0_NI/bin/Linux32_ARM,-rpath,/usr/local/frc/lib -lwpi
+LIBS = -L../../wpilib/cpp/current/lib -L../../wpilib/user/cpp/lib -L./wpilib-cpp/lib -Wl,-rpath,/opt/GenICam_v3_0_NI/bin/Linux32_ARM,-rpath,/usr/local/frc/lib -lwpi 
 
 DESTPATH = $(Binfolder)/$(Target)
 	

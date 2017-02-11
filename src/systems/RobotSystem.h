@@ -7,16 +7,14 @@
 
 #ifndef SRC_SYSTEMS_ROBOTSYSTEM_H_
 #define SRC_SYSTEMS_ROBOTSYSTEM_H_
-
-#include "../input/InputMethod.h"
 #include <memory>
+#include "../input/InputMethod.h"
 
 class RobotSystem {
 public:
-	RobotSystem(std::shared_ptr<InputMethod> input );
+	RobotSystem(std::shared_ptr<InputMethod> input);
 	virtual ~RobotSystem();
 	virtual void run() = 0;
-
 protected:
 	std::shared_ptr<InputMethod> input;
 };

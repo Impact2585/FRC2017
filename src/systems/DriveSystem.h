@@ -6,6 +6,7 @@
 #define SRC_SYSTEMS_DRIVESYSTEM_H_
 #include <RobotDrive.h>
 #include "RobotSystem.h"
+#include "../RobotMap.h"
 #include "../utils/Toggler.h"
 
 class DriveSystem : public RobotSystem {
@@ -19,7 +20,7 @@ public:
 	static constexpr double RAMP = 0.6;
 	static constexpr double MIN_INCREMENT = 0.1;
 	static constexpr double DEADZONE = 0.15;
-
+	static const char *NAME;
 private:
 	std::unique_ptr<RobotDrive> drivetrain;
 	double currentRampForward;

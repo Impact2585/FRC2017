@@ -4,7 +4,7 @@
 
 #ifndef SRC_INPUT_INPUTMETHOD_H_
 #define SRC_INPUT_INPUTMETHOD_H_
-#include "../RobotMap.h"
+#include "../XboxConstants.h"
 
 class InputMethod {
 public:

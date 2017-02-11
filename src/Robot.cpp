@@ -4,7 +4,8 @@
 #include "Robot.h"
 
 Robot::Robot() {
-
+	environ = std::make_shared<Environment>();
+	executor = std::make_unique<AutonExecutor>(environ);
 }
 
 Robot::~Robot() {
@@ -16,7 +17,7 @@ void Robot::RobotInit() {
 }
 
 void Robot::AutonomousInit() {
-
+	executor.reset(new AutonExecutor(environ));
 }
 
 /**
@@ -35,7 +36,7 @@ void Robot::TeleopPeriodic() {
 }
 
 void Robot::AutonomousPeriodic() {
-
+	executor->execute();
 }
 
 void Robot::DisabledPeriodic() {

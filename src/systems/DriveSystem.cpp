@@ -5,13 +5,16 @@
 #include "DriveSystem.h"
 #include <Talon.h>
 
+/** Name of the system used for reference, */
+const char *DriveSystem::NAME = "DRIVESYSTEM";
+
 /**
  * Constructor for the DriveSystem that initializes the RobotDrive and InputMethod.
  *
  * @param input the pointer to the InputMethod to use.
  */
 DriveSystem::DriveSystem(std::shared_ptr<InputMethod> input) : RobotSystem(input), currentRampForward(0) {
-	drivetrain = std::make_unique<RobotDrive>(new Talon(1), new Talon(2), new Talon(3), new Talon(4));
+	drivetrain = std::make_unique<RobotDrive>(new Talon(RobotMap::FRONT_LEFT_DRIVE), new Talon(RobotMap::REAR_LEFT_DRIVE), new Talon(RobotMap::FRONT_RIGHT_DRIVE), new Talon(RobotMap::REAR_RIGHT_DRIVE));
 	invertDriveToggler = std::make_unique<Toggler>();
 }
 
@@ -53,25 +56,30 @@ void DriveSystem::arcadeControl(double desiredForwardValue, double rotateValue, 
 /**
  * Sets val to 0 if the absolute value of it is below 0.
  *
+ * @param val the reference of the value to set.
  */
 void DriveSystem::modifyIfInDeadzone(double& val) {
 	val = abs(val) <= DEADZONE ? 0 : val;
 }
 
 /**
- * Called by the teleopexecutor.
+ * Called by the TeleopExecutor.
  * Gets input from the inputmethod and drives based on that input.
  */
 void DriveSystem::run() {
+	/** Gets all the input values. */
 	double desiredForwardValue = input->getForwardDistance();
 	double desiredRotateValue = input->getSidewaysDistance();
 	bool shouldInvert = input->toggleDrive();
 	
+	/** Inverts if the button is pressed. */
 	if(invertDriveToggler->checkToggle(shouldInvert))
 		desiredForwardValue *= -1;
 
 	modifyIfInDeadzone(desiredForwardValue);
 	modifyIfInDeadzone(desiredRotateValue);
+
+	/** Squares rotation. */
 	arcadeControl(desiredForwardValue, desiredRotateValue, true);
 }
 

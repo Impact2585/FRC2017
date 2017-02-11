@@ -9,7 +9,7 @@
  *
  */
 Environment::Environment() : input(new XboxController){
-	systems.push_back(std::make_unique<DriveSystem>(input));
+	systems.at(DriveSystem::NAME) = std::make_unique<DriveSystem>(input);
 }
 
 Environment::~Environment() {
@@ -17,11 +17,11 @@ Environment::~Environment() {
 }
 
 /**
- * Gets all of the RobotSystems.
+ * Gets all of the RobotSystems and their unique names.
  *
- * @return a reference to a vector containing the RobotSystems.
+ * @return a reference to a map containing the RobotSystems and names.
  */
-std::vector<std::unique_ptr<RobotSystem>>& Environment::getSystems() {
+std::map<std::string, std::shared_ptr<RobotSystem>>& Environment::getSystems() {
 	return systems;
 }
 

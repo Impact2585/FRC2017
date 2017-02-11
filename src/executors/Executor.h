@@ -17,7 +17,7 @@ public:
 	virtual void execute() = 0;
 protected:
 	std::shared_ptr<Environment> environ;
-	std::vector<std::unique_ptr<RobotSystem>>& systems;
+	std::map<std::string, std::shared_ptr<RobotSystem>>& systems;
 };
 
 

@@ -7,6 +7,7 @@
 #include <IterativeRobot.h>
 #include "executors/Executor.h"
 #include "Environment.h"
+#include "executors/AutonExecutor.h"
 #include "executors/TeleopExecutor.h"
 
 class Robot : public frc::IterativeRobot {
