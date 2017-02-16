@@ -5,7 +5,7 @@
 #include "XboxController.h"
 
 XboxController::XboxController() {
-	joystick = std::make_unique<Joystick>(1);
+	joystick = std::make_unique<Joystick>(0);
 }
 
 XboxController::~XboxController() {
@@ -42,4 +42,11 @@ bool XboxController::shoot() {
 	return joystick->GetRawButton(XboxConstants::X_BUTTON);
 }
 
+bool XboxController::intake() {
+	return joystick->GetRawButton(XboxConstants::RIGHT_BUMPER);
+}
+
+bool XboxController::outtake() {
+	return joystick->GetRawButton(XboxConstants::LEFT_BUMPER);
+}
 

@@ -16,6 +16,9 @@ public:
 	virtual bool toggleDrive() = 0;
 
 	virtual bool shoot() = 0;
+	
+	virtual bool intake() = 0;
+	virtual bool outtake() = 0;
 };
 
 

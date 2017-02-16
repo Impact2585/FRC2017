@@ -1,30 +1,30 @@
-#include "TimedDriveCommand.h"
+#include "TimedDriveTask.h"
 
-TimedDriveCommand::TimedDriveCommand(std::map<std::string, std::shared_ptr<RobotSystem>>& systems, int timeDriving) : timeToDrive(timeDriving), timeElapsed(0) {
+TimedDriveTask::TimedDriveTask(std::map<std::string, std::shared_ptr<RobotSystem>>& systems, int timeDriving) : timeToDrive(timeDriving), timeElapsed(0) {
 	drive = systems.at(DriveSystem::NAME);
 	//drive = dynamic_cast<std::shared_ptr<DriveSystem>>(systems.at(DriveSystem::NAME));
 	//drive = dynamic_cast<DriveSystem*>(&systems.at(DriveSystem::NAME));
 	timer = std::make_unique<Timer>();
 }
 
-TimedDriveCommand::~TimedDriveCommand() {
+TimedDriveTask::~TimedDriveTask() {
 
 }
 
-void TimedDriveCommand::onStart() {
+void TimedDriveTask::onStart() {
 	timer->Reset();	
 }
 
-void TimedDriveCommand::execute() {
+void TimedDriveTask::execute() {
 	static_cast<DriveSystem*>(drive.get())->arcadeControl(50, 0, false);
 	timeElapsed = timer->Get();
 }
 
-void TimedDriveCommand::onEnd() {
+void TimedDriveTask::onEnd() {
 	static_cast<DriveSystem*>(drive.get())->arcadeControl(0, 0, false);
 }
 
-bool TimedDriveCommand::checkIfFinished() {
+bool TimedDriveTask::checkIfFinished() {
 	return timeElapsed == timeToDrive;
 }
 

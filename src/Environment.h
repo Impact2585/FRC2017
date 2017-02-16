@@ -7,6 +7,7 @@
 
 #include "systems/RobotSystem.h"
 #include "systems/DriveSystem.h"
+#include "systems/IntakeSystem.h"
 #include "input/XboxController.h"
 #include "input/InputMethod.h"
 #include <memory>
@@ -16,11 +17,10 @@ class Environment {
 public:
 	Environment();
 	~Environment();
-	//std::vector<std::unique_ptr<RobotSystem>>& getSystems();
 	std::map<std::string, std::shared_ptr<RobotSystem>>& getSystems();
+	void stopAll();
 
 private:
-	//std::vector<std::unique_ptr<RobotSystem>> systems;
 	std::map<std::string, std::shared_ptr<RobotSystem>> systems;
 	std::shared_ptr<InputMethod> input;
 };

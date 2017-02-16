@@ -3,22 +3,20 @@
 #include <memory>
 #include <vector>
 #include "Executor.h"
-#include "../commands/Command.h"
-#include "../commands/TimedDriveCommand.h"
+#include "../tasks/Task.h"
+#include "../tasks/TimedDriveTask.h"
 
 class AutonExecutor : public Executor {
 public:
 	AutonExecutor(std::shared_ptr<Environment> environ);
 	virtual ~AutonExecutor();
 	virtual void execute();
-	void runCommand(std::vector<std::shared_ptr<Command>>::iterator command);
-	//void runCommand(boost::ptr_vector<Command>::iterator command);
+	void runTask(std::vector<std::shared_ptr<Task>>::iterator task);
 private:
-	std::vector<std::shared_ptr<Command>> commands;
-	std::vector<std::shared_ptr<Command>>::iterator currCommand;
-	//boost::ptr_vector<Command> commands;
-	//boost::ptr_vector<Command>::iterator currCommand;
-	bool nextCommand;
+	std::vector<std::shared_ptr<Task>> tasks;
+	std::vector<std::shared_ptr<Task>>::iterator currTask;
+
+	bool nextTask;
 };
 
 #endif /* SRC_EXECUTORS_EXECUTOR_H_ */

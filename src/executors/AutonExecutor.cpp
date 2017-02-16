@@ -1,31 +1,33 @@
 #include "AutonExecutor.h"
 
-AutonExecutor::AutonExecutor(std::shared_ptr<Environment> environ) : Executor(environ), nextCommand(false) {
-	std::shared_ptr<Command> command( new TimedDriveCommand(environ->getSystems(), 500));
-	commands.push_back(command);
-	currCommand = commands.begin();
+AutonExecutor::AutonExecutor(std::shared_ptr<Environment> environ) : Executor(environ), nextTask(false) {
+	tasks.push_back(std::shared_ptr<Task>(new TimedDriveTask(environ->getSystems(), 500)));
+	currTask = tasks.begin();
 }
 
 AutonExecutor::~AutonExecutor() {
 
 }
 
-void AutonExecutor::runCommand(std::vector<std::shared_ptr<Command>>::iterator command) {
-	if((*command)->isDone()) {
-		(*command)->onEnd();
-		nextCommand = true;
+void AutonExecutor::runTask(std::vector<std::shared_ptr<Task>>::iterator task) {
+	if((*task)->isDone()) {
+		(*task)->onEnd();
+		nextTask = true;
 	} else { 
-		(*command)->run();
+		(*task)->run();
 	}
 }
 
+
 void AutonExecutor::execute() {
-	if(commands.size() != 0) {
-		if(nextCommand) {
-			currCommand = commands.erase(currCommand);
-			nextCommand = false;
+	if(tasks.size() != 0) {
+		if(nextTask) {
+			currTask = tasks.erase(currTask);
+			nextTask = false;
 		} else {
-			runCommand(currCommand);
+			runTask(currTask);
 		}
 	}
 }
+
+

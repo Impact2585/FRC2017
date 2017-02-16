@@ -15,6 +15,7 @@ public:
 	RobotSystem(std::shared_ptr<InputMethod> input);
 	virtual ~RobotSystem();
 	virtual void run() = 0;
+	virtual void stopAllMotors() = 0;
 protected:
 	std::shared_ptr<InputMethod> input;
 };

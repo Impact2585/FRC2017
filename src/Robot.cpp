@@ -28,7 +28,7 @@ void Robot::TeleopInit() {
 }
 
 void Robot::DisabledInit() {
-
+	environ->stopAll();
 }
 
 void Robot::TeleopPeriodic() {
@@ -44,5 +44,6 @@ void Robot::DisabledPeriodic() {
 }
 
 START_ROBOT_CLASS(Robot)
+
 
 

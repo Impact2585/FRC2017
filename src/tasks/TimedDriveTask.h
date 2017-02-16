@@ -1,16 +1,19 @@
-#ifndef SRC_COMMANDS_TIMEDDRIVECOMMAND_H_
-#define SRC_COMMANDS_TIMEDDRIVECOMMAND_H_
+#ifndef SRC_TASKS_TIMEDDRIVETASK_H_
+#define SRC_TASKS_TIMEDDRIVETASK_H_
 
+#ifndef TESTING
 #include <Timer.h>
-#include "Command.h"
+#endif
+
+#include "Task.h"
 #include <map>
 #include "../systems/RobotSystem.h"
 #include "../systems/DriveSystem.h"
 
-class TimedDriveCommand : public Command {
+class TimedDriveTask : public Task {
 public:
-	TimedDriveCommand(std::map<std::string, std::shared_ptr<RobotSystem>>& systems, int timeDriving);
-	~TimedDriveCommand();
+	TimedDriveTask(std::map<std::string, std::shared_ptr<RobotSystem>>& systems, int timeDriving);
+	~TimedDriveTask();
 	virtual void onStart();
 	virtual void execute();
 	virtual void onEnd();
@@ -20,7 +23,9 @@ protected:
 
 private:
 	std::shared_ptr<RobotSystem> drive;
+#ifndef TESTING
 	std::unique_ptr<frc::Timer> timer;
+#endif
 	int timeToDrive;
 	int timeElapsed;
 	

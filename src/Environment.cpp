@@ -6,10 +6,10 @@
 
 /**
  * Constructor that initializes all of the different RobotSystems.
- *
  */
 Environment::Environment() : input(new XboxController){
-	systems.at(DriveSystem::NAME) = std::make_unique<DriveSystem>(input);
+	systems.insert( std::pair<std::string, std::shared_ptr<RobotSystem>>(DriveSystem::NAME, std::make_shared<DriveSystem>(input)));
+	systems.insert( std::pair<std::string, std::shared_ptr<RobotSystem>>(IntakeSystem::NAME, std::make_shared<IntakeSystem>(input)));
 }
 
 Environment::~Environment() {
@@ -25,3 +25,11 @@ std::map<std::string, std::shared_ptr<RobotSystem>>& Environment::getSystems() {
 	return systems;
 }
 
+/**
+ * Stops all systems.
+ */
+void Environment::stopAll() {
+	for(auto& entry : systems) {
+		(entry.second)->stopAllMotors();
+	}
+}

@@ -1,4 +1,3 @@
-
 Target := FRCUserProgram
 
 Sources := $(shell find src -name '*.cpp')
@@ -38,3 +37,4 @@ removeobjs:
 
 clean: 
 	@$(RM) $(DESTPATH)
+

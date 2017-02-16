@@ -1,10 +1,10 @@
-#ifndef SRC_COMMANDS_COMMAND_H_
-#define SRC_COMMANDS_COMMAND_H_
+#ifndef SRC_TASKS_TASK_H_
+#define SRC_TASKS_TASK_H_
 
-class Command {
+class Task {
 public:
-	Command();
-	virtual ~Command();
+	Task();
+	virtual ~Task();
 	virtual void onStart() = 0;
 	void run();
 	virtual void execute() = 0;

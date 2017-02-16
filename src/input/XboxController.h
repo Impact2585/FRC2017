@@ -17,6 +17,9 @@ public:
 	virtual double getSidewaysDistance();
 	virtual bool toggleDrive();
 	virtual bool shoot();
+	
+	virtual bool intake();
+	virtual bool outtake();
 private:
 	std::unique_ptr<Joystick> joystick;
 };
