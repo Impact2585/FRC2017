@@ -1,6 +1,6 @@
 #include "TestInputMethod.h"
 
-TestInputMethod::TestInputMethod() : desiredForwardVal(0) {
+TestInputMethod::TestInputMethod() : desiredForwardVal(0), finished(false) {
 
 }
 
@@ -34,4 +34,12 @@ bool TestInputMethod::outtake() {
 
 void TestInputMethod::setDesiredForward(float val) {
 	desiredForwardVal = val;
+}
+
+void TestInputMethod::setFinished(bool finished) {
+    this->finished = finished;
+}
+
+bool TestInputMethod::isFinished() {
+    return finished;
 }

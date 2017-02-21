@@ -8,6 +8,7 @@
 #ifndef TESTING
 #include <RobotDrive.h>
 #include <Talon.h>
+#include <Victor.h>
 #endif
 
 #include "RobotSystem.h"

@@ -17,8 +17,11 @@ public:
 	virtual bool outtake();
 
 	void setDesiredForward(float val);
+    void setFinished(bool finished);
+    bool isFinished();
 private:
 	float desiredForwardVal;
+    bool finished;
 };
 
 #endif

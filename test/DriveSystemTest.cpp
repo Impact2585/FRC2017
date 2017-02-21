@@ -1,5 +1,4 @@
 #include "DriveSystemTest.h"
-#include <stdio.h>
 
 DriveSystemTest::DriveSystemTest() {
 	input = std::make_shared<TestInputMethod>();
@@ -18,25 +17,40 @@ void DriveSystemTest::testInit() {
 }
 
 void DriveSystemTest::testRamp() {
+
+    /** Tests ramp. */
 	static_cast<TestInputMethod*>(input.get())->setDesiredForward(0.5);
 	runDrive();
 	TEST_ASSERT(currRampForward == round2(0.4));
+
+    /** Should finish ramping up to desired ramp forward. */
 	runDrive();
 	TEST_ASSERT(currRampForward == 0.5);
 	
+    /** Tests decreasing ramp. */
 	static_cast<TestInputMethod*>(input.get())->setDesiredForward(0.2);
 	runDrive();
 	TEST_ASSERT(currRampForward == round2(0.26));
 	
+    /** Tests reversing. */
 	static_cast<TestInputMethod*>(input.get())->setDesiredForward(-0.5);
 	runDrive();
-	printf("%f\n", currRampForward);
 	TEST_ASSERT(round2(currRampForward) == round2(-0.348));
 	
+    /** Tests if the motors are immediately set to 0 if input is set to 0. */
 	static_cast<TestInputMethod*>(input.get())->setDesiredForward(0);
 	runDrive();
 	TEST_ASSERT(currRampForward == 0);
 	
+    /** Tests deadZone. */
+    static_cast<TestInputMethod*>(input.get())->setDesiredForward(DriveSystem::DEADZONE - 0.01);
+    runDrive();
+    TEST_ASSERT(currRampForward == 0);
+
+    /** Tests opposite deadzone. */
+    static_cast<TestInputMethod*>(input.get())->setDesiredForward(-DriveSystem::DEADZONE + 0.01);
+    runDrive();
+    TEST_ASSERT(currRampForward == 0);
 }
 
 void DriveSystemTest::runDrive() {

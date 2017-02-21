@@ -3,16 +3,17 @@
 
 #ifndef TESTING
 #include <Timer.h>
+#else
+#include <ctime>
 #endif
 
 #include "Task.h"
 #include <map>
-#include "../systems/RobotSystem.h"
 #include "../systems/DriveSystem.h"
 
 class TimedDriveTask : public Task {
 public:
-	TimedDriveTask(std::map<std::string, std::shared_ptr<RobotSystem>>& systems, int timeDriving);
+	TimedDriveTask(std::shared_ptr<RobotSystem> system, double timeDriving, bool direction);
 	~TimedDriveTask();
 	virtual void onStart();
 	virtual void execute();
@@ -25,10 +26,13 @@ private:
 	std::shared_ptr<RobotSystem> drive;
 #ifndef TESTING
 	std::unique_ptr<frc::Timer> timer;
+#else
+    std::clock_t start;
 #endif
-	int timeToDrive;
-	int timeElapsed;
-	
+
+	double timeToDrive;
+	double timeElapsed;
+    double speed;
 };
 
 #endif

@@ -2,10 +2,13 @@
  * Robot.cpp
  */
 #include "Robot.h"
+#include <chrono>
+#include <thread>
 
 Robot::Robot() {
 	environ = std::make_shared<Environment>();
-	executor = std::make_unique<AutonExecutor>(environ);
+    centerGear = std::make_shared<CenterTimedGearDelivery>(environ);
+	executor = std::make_unique<AutonExecutor>(environ, centerGear);
 }
 
 Robot::~Robot() {
@@ -13,11 +16,19 @@ Robot::~Robot() {
 }
 
 void Robot::RobotInit() {
-
+    autonChoice.AddDefault("CenterTimedDrive", centerGear.get());
 }
 
 void Robot::AutonomousInit() {
-	executor.reset(new AutonExecutor(environ));
+    //centerGear->init();
+    //executor.reset(new AutonExecutor(environ, centerGear));
+   
+    static_cast<DriveSystem*>(environ->getSystems().at(DriveSystem::NAME).get())->drive(1, 0, false);
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    static_cast<DriveSystem*>(environ->getSystems().at(DriveSystem::NAME).get())->drive(-1, 0, false);
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    static_cast<DriveSystem*>(environ->getSystems().at(DriveSystem::NAME).get())->stopAllMotors();
+    
 }
 
 /**
@@ -36,7 +47,7 @@ void Robot::TeleopPeriodic() {
 }
 
 void Robot::AutonomousPeriodic() {
-	executor->execute();
+	//executor->execute();
 }
 
 void Robot::DisabledPeriodic() {

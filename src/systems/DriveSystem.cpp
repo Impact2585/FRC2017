@@ -14,11 +14,11 @@ const char *DriveSystem::NAME = "DRIVESYSTEM";
  */
 DriveSystem::DriveSystem(std::shared_ptr<InputMethod> input) : RobotSystem(input), currentRampForward(0) {
 #ifndef TESTING
-	Talon *frontLeft = new Talon(RobotMap::FRONT_LEFT_DRIVE);
+	Victor *frontLeft = new Victor(RobotMap::FRONT_LEFT_DRIVE);
 	Talon *backLeft = new Talon(RobotMap::REAR_LEFT_DRIVE);
 	frontLeft->SetInverted(true);
 	backLeft->SetInverted(true);
-	drivetrain = std::make_unique<RobotDrive>(frontLeft, backLeft, new Talon(RobotMap::FRONT_RIGHT_DRIVE), new Talon(RobotMap::REAR_RIGHT_DRIVE));
+	drivetrain = std::make_unique<RobotDrive>(frontLeft, backLeft, new Victor(RobotMap::FRONT_RIGHT_DRIVE), new Talon(RobotMap::REAR_RIGHT_DRIVE));
 #endif
 	invertDriveToggler = std::make_unique<Toggler>();
 }
@@ -88,6 +88,11 @@ void DriveSystem::run() {
 	arcadeControl(desiredForwardValue, desiredRotateValue, true);
 }
 
+/**
+ * Gets the current ramp forward.
+ *
+ * @return the current ramp forward.
+ */
 double DriveSystem::getCurrentRampForward() {
 	return currentRampForward;
 }
