@@ -54,6 +54,7 @@ void Robot::DisabledPeriodic() {
 
 }
 
+void Robot::
 START_ROBOT_CLASS(Robot)
 
 
