@@ -3,7 +3,7 @@
 TaskChainTest::TaskChainTest() : currToggle(false) {
     input = std::make_shared<TestInputMethod>();
     tasks = std::make_unique<TestableTaskChain>(input);
-    tasks->init();
+    tasks->setup();
     //tasks.add(std::shared_ptr<TimedDriveTask>(drive, 5000)); 
     //tests.add(std::shared_ptr<TimedDriveTask>(drive, 3000));
     TEST_ADD(TaskChainTest::testInitTask);

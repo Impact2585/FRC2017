@@ -1,7 +1,7 @@
 
 TARGET := Test
 
-Sources := $(shell find ../ ! -name "TimedDriveTask*" ! -name "Xbox*" ! -name "*Executor*" ! -name "Environment*" ! -name "Robot.cpp" -name "*.cpp")
+Sources := $(shell find ../ ! -name "TimedDriveTask*" ! -name "Xbox*" ! -name "*Executor*" ! -name "Environment*" ! -name "Robot.cpp" ! -name "CenterTime*" -name "*.cpp")
 
 CXX = g++
 

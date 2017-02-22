@@ -26,3 +26,9 @@ bool Toggler::checkToggle(bool input) {
 	prevInput = input;
 	return val;
 }
+
+bool Toggler::toggled(bool input) {
+    bool prev = prevInput;
+    prevInput = input;
+    return input && !prev;
+}

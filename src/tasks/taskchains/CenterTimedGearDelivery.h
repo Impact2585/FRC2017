@@ -7,7 +7,7 @@ class CenterTimedGearDelivery : public TaskChain {
 public:
     CenterTimedGearDelivery(std::shared_ptr<Environment> environ);
     ~CenterTimedGearDelivery();
-    virtual void init();
+    virtual void initializeTasks();
 };
 
 #endif

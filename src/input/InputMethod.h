@@ -15,10 +15,13 @@ public:
 	virtual double getSidewaysDistance() = 0;
 	virtual bool toggleDrive() = 0;
 
-	virtual bool shoot() = 0;
+	virtual bool shootToggle() = 0;
 	
 	virtual bool intake() = 0;
 	virtual bool outtake() = 0;
+    
+	virtual bool toggleBlockHolder() = 0;
+	virtual bool toggleLever() = 0;
 };
 
 

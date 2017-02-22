@@ -36,9 +36,9 @@ bool XboxController::toggleDrive() {
 }
 
 /**
- * Gets whether the driver wants to shoot.
+ * Gets whether the driver wants to toggle the shoot function.
  */
-bool XboxController::shoot() {
+bool XboxController::shootToggle() {
 	return joystick->GetRawButton(XboxConstants::X_BUTTON);
 }
 
@@ -50,3 +50,10 @@ bool XboxController::outtake() {
 	return joystick->GetRawButton(XboxConstants::LEFT_BUMPER);
 }
 
+bool XboxController::toggleBlockHolder() {
+    return joystick->GetRawButton(XboxConstants::A_BUTTON);
+}
+
+bool XboxController::toggleLever() {
+    return joystick->GetRawButton(XboxConstants::B_BUTTON);
+}

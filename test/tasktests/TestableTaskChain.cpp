@@ -8,7 +8,7 @@ TestableTaskChain::~TestableTaskChain() {
 
 }
 
-void TestableTaskChain::init() {
+void TestableTaskChain::initializeTasks() {
     addTask(std::make_shared<TestTask>(input, std::make_shared<EndSignal>()));
     addTask(std::make_shared<TestTask>(input, std::make_shared<EndSignal>()));
     currTask = tasks.begin();

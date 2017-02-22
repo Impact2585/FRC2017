@@ -12,7 +12,7 @@ public:
 	virtual ~AutonExecutor();
 	virtual void execute();
 private:
-    std::shared_ptr<TaskChain> tasks;
+    std::shared_ptr<TaskChain> taskChain;
 };
 
 #endif /* SRC_EXECUTORS_EXECUTOR_H_ */

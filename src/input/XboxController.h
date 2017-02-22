@@ -16,10 +16,13 @@ public:
 	virtual double getForwardDistance();
 	virtual double getSidewaysDistance();
 	virtual bool toggleDrive();
-	virtual bool shoot();
+	virtual bool shootToggle();
 	
 	virtual bool intake();
 	virtual bool outtake();
+    
+	virtual bool toggleBlockHolder();
+	virtual bool toggleLever();
 private:
 	std::unique_ptr<Joystick> joystick;
 };

@@ -9,7 +9,7 @@ class TestableTaskChain : public TaskChain {
 public:
     TestableTaskChain(std::shared_ptr<TestInputMethod> input);
     virtual ~TestableTaskChain();
-    virtual void init();
+    virtual void initializeTasks();
 private:
     std::shared_ptr<TestInputMethod> input;
 };

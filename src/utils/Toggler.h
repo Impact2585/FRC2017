@@ -9,6 +9,7 @@ public:
 	Toggler();
 	~Toggler();
 	bool checkToggle(bool input);
+    bool toggled(bool input);
 private:
 	bool prevInput;
 	bool val;

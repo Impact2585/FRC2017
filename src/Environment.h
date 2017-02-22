@@ -8,6 +8,8 @@
 #include "systems/RobotSystem.h"
 #include "systems/DriveSystem.h"
 #include "systems/IntakeSystem.h"
+#include "systems/GearboxSystem.h"
+#include "systems/ShooterSystem.h"
 #include "input/XboxController.h"
 #include "input/InputMethod.h"
 #include <memory>

@@ -1,5 +1,8 @@
 #include "DriveSystemTest.h"
 
+/**
+ * Constructor that initializes the input method, drivesystem and adds the tests.
+ */
 DriveSystemTest::DriveSystemTest() {
 	input = std::make_shared<TestInputMethod>();
 	drive = std::make_unique<DriveSystem>(input);
@@ -11,11 +14,17 @@ DriveSystemTest::~DriveSystemTest() {
 
 }
 
+/**
+ * tests if the drive system does not drive forward when starting.
+ */
 void DriveSystemTest::testInit() {
 	runDrive();
 	TEST_ASSERT(currRampForward == 0);
 }
 
+/** 
+ * tests if the drivesystem correctly ramps.
+ */
 void DriveSystemTest::testRamp() {
 
     /** Tests ramp. */
@@ -53,11 +62,17 @@ void DriveSystemTest::testRamp() {
     TEST_ASSERT(currRampForward == 0);
 }
 
+/**
+ * Runs the drive system and gets the currentRampForward.
+ */
 void DriveSystemTest::runDrive() {
 	drive->run();
 	currRampForward = drive->getCurrentRampForward();
 }
 
+/**
+ * Rounds to the nearest hundredth and truncates the rest.
+ */
 float DriveSystemTest::round2(float toRound) {
 	return roundf(toRound * 100) / 100;
 }

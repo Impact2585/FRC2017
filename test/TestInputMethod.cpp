@@ -20,7 +20,7 @@ bool TestInputMethod::toggleDrive() {
 	return false;
 }
 
-bool TestInputMethod::shoot() {
+bool TestInputMethod::shootToggle() {
 	return false;
 }
 
@@ -30,6 +30,22 @@ bool TestInputMethod::intake() {
 
 bool TestInputMethod::outtake() {
 	return false;
+}
+
+bool TestInputMethod::toggleBlockHolder() {
+    return toggleBlockSystem;
+}
+
+bool TestInputMethod::toggleLever() {
+    return toggleLeverSystem;
+}
+
+void TestInputMethod::setLeverToggle(bool toggle) {
+    toggleLeverSystem = toggle;
+}
+
+void TestInputMethod::setBlockHolderToggle(bool toggle) {
+    toggleBlockSystem = toggle;
 }
 
 void TestInputMethod::setDesiredForward(float val) {

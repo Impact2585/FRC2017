@@ -11,17 +11,25 @@ public:
 	virtual double getSidewaysDistance();
 	virtual bool toggleDrive();
 
-	virtual bool shoot();
-	
+	virtual bool shootToggle();
+
 	virtual bool intake();
 	virtual bool outtake();
 
+	virtual bool toggleBlockHolder();
+	virtual bool toggleLever();
+    
+    void setLeverToggle(bool toggle);
+    void setBlockHolderToggle(bool toggle);
+
 	void setDesiredForward(float val);
-    void setFinished(bool finished);
-    bool isFinished();
+	void setFinished(bool finished);
+	bool isFinished();
 private:
 	float desiredForwardVal;
-    bool finished;
+	bool finished;
+    bool toggleLeverSystem;
+    bool toggleBlockSystem;
 };
 
 #endif

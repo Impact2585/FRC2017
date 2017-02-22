@@ -2,6 +2,7 @@
  * Robot.cpp
  */
 #include "Robot.h"
+#include <SmartDashboard/SmartDashboard.h>
 #include <chrono>
 #include <thread>
 
@@ -16,19 +17,23 @@ Robot::~Robot() {
 }
 
 void Robot::RobotInit() {
-    autonChoice.AddDefault("CenterTimedDrive", centerGear.get());
+    autonChoice.AddDefault("CenterTimedDrive", centerGear);
+    frc::SmartDashboard::PutData("Auton choices", &autonChoice);
 }
 
 void Robot::AutonomousInit() {
-    //centerGear->init();
-    //executor.reset(new AutonExecutor(environ, centerGear));
-   
+    //executor.reset(new AutonExecutor(environ, autonChoice.GetSelected()));
+    executor.reset(new AutonExecutor(environ, centerGear));
+
+    /**
+     
     static_cast<DriveSystem*>(environ->getSystems().at(DriveSystem::NAME).get())->drive(1, 0, false);
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     static_cast<DriveSystem*>(environ->getSystems().at(DriveSystem::NAME).get())->drive(-1, 0, false);
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     static_cast<DriveSystem*>(environ->getSystems().at(DriveSystem::NAME).get())->stopAllMotors();
-    
+   
+    */
 }
 
 /**
@@ -47,14 +52,13 @@ void Robot::TeleopPeriodic() {
 }
 
 void Robot::AutonomousPeriodic() {
-	//executor->execute();
+	executor->execute();
 }
 
 void Robot::DisabledPeriodic() {
 
 }
 
-void Robot::
 START_ROBOT_CLASS(Robot)
 
 

@@ -15,24 +15,25 @@ public:
 #ifndef TESTING
 	TaskChain(std::shared_ptr<Environment> environ);
 #else
-    TaskChain();
+	TaskChain();
 #endif
 	~TaskChain();
-	virtual void init() = 0;
+	void setup();
+	virtual void initializeTasks() = 0;
 	void run();
 	void runTask(std::vector<std::shared_ptr<Task>>::iterator task);
-    void addTask(std::shared_ptr<Task> task);
-    std::shared_ptr<Task> getCurrentTask();
-    //std::vector<std::shared_ptr<Task>>::iterator getCurrentTask();
+	void addTask(std::shared_ptr<Task> task);
+	std::shared_ptr<Task> getCurrentTask();
+	//std::vector<std::shared_ptr<Task>>::iterator getCurrentTask();
 
 protected:
-    std::vector<std::shared_ptr<Task>>::iterator currTask;
+	std::vector<std::shared_ptr<Task>>::iterator currTask;
 	std::vector<std::shared_ptr<Task>> tasks;
 #ifndef TESTING
 	std::shared_ptr<Environment> environ;
 #endif
 	bool nextTask;
-    bool started;
+	bool started;
 };
 
 #endif

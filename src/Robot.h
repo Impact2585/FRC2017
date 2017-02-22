@@ -30,8 +30,8 @@ public:
 private:
 	std::shared_ptr<Environment> environ;
 	std::unique_ptr<Executor> executor;
-	SendableChooser<TaskChain*> autonChoice;	
-    std::shared_ptr<CenterTimedGearDelivery> centerGear;
+	SendableChooser<std::shared_ptr<TaskChain>> autonChoice;	
+    std::shared_ptr<TaskChain> centerGear;
 };
 
 

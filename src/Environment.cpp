@@ -8,8 +8,11 @@
  * Constructor that initializes all of the different RobotSystems.
  */
 Environment::Environment() : input(new XboxController){
+    /** Add all the various systems. */
 	systems.insert( std::pair<std::string, std::shared_ptr<RobotSystem>>(DriveSystem::NAME, std::make_shared<DriveSystem>(input)));
 	systems.insert( std::pair<std::string, std::shared_ptr<RobotSystem>>(IntakeSystem::NAME, std::make_shared<IntakeSystem>(input)));
+	systems.insert( std::pair<std::string, std::shared_ptr<RobotSystem>>(GearboxSystem::NAME, std::make_shared<GearboxSystem>(input)));
+    systems.insert( std::pair<std::string, std::shared_ptr<RobotSystem>>(ShooterSystem::NAME, std::make_shared<ShooterSystem>(input)));
 }
 
 Environment::~Environment() {
