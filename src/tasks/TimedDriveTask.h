@@ -13,19 +13,19 @@
 
 class TimedDriveTask : public Task {
 public:
-	TimedDriveTask(std::shared_ptr<RobotSystem> system, double timeDriving, bool direction);
-	~TimedDriveTask();
-	virtual void onStart();
-	virtual void execute();
-	virtual void onEnd();
+    TimedDriveTask(std::shared_ptr<RobotSystem> system, double timeDriving, bool direction);
+    ~TimedDriveTask();
+    virtual void onStart();
+    virtual void execute();
+    virtual void onEnd();
 
 protected:
-	virtual bool checkIfFinished();
+    virtual bool checkIfFinished();
 
 private:
-	std::shared_ptr<RobotSystem> drive;
+    std::shared_ptr<RobotSystem> drive;
 #ifndef TESTING
-	std::unique_ptr<frc::Timer> timer;
+    std::unique_ptr<frc::Timer> timer;
 #else
     std::clock_t start;
 #endif

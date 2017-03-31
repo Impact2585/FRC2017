@@ -12,12 +12,12 @@
 
 class Executor {
 public:
-	Executor(std::shared_ptr<Environment> environ);
-	virtual ~Executor();
-	virtual void execute() = 0;
+    Executor(std::shared_ptr<Environment> environ);
+    virtual ~Executor();
+    virtual void execute() = 0;
 protected:
-	std::shared_ptr<Environment> environ;
-	std::map<std::string, std::shared_ptr<RobotSystem>>& systems;
+    std::shared_ptr<Environment> environ;
+    std::map<std::string, std::shared_ptr<RobotSystem>>& systems;
 };
 
 

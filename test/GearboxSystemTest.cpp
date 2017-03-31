@@ -30,12 +30,12 @@ void GearboxSystemTest::testStart() {
     runSystem();
     TEST_ASSERT(round(leverSpeed) == round(GearboxSystem::LEVER_SPEED));
     TEST_ASSERT(blockSpeed == 0);
-    
+
     setGearHolderToggle(true);
     runSystem();
     TEST_ASSERT(leverSpeed == GearboxSystem::LEVER_SPEED);
     TEST_ASSERT(blockSpeed == GearboxSystem::BLOCK_SPEED);
-   
+
     setLeverToggle(false);
     setGearHolderToggle(false);
     runSystem(); 
@@ -50,13 +50,13 @@ void GearboxSystemTest::testFinish() {
     runSystem();
     TEST_ASSERT(leverSpeed == GearboxSystem::LEVER_SPEED);
     TEST_ASSERT(blockSpeed == GearboxSystem::BLOCK_SPEED);
-     
+
     gearbox->getLeverSystem()->currTime = GearboxSystem::LEVER_TIME;
     gearbox->getBlockHolderSystem()->currTime = GearboxSystem::BLOCK_TIME;
     runSystem();
     TEST_ASSERT(leverSpeed == 0);
     TEST_ASSERT(blockSpeed == 0);
-    
+
 }
 
 void GearboxSystemTest::testSwitch() {
@@ -65,7 +65,7 @@ void GearboxSystemTest::testSwitch() {
     runSystem();
     TEST_ASSERT(leverSpeed == -GearboxSystem::LEVER_SPEED);
     TEST_ASSERT(blockSpeed == -GearboxSystem::BLOCK_SPEED);
-    
+
     runSystem();
     TEST_ASSERT(leverSpeed == -GearboxSystem::LEVER_SPEED);
     TEST_ASSERT(blockSpeed == -GearboxSystem::BLOCK_SPEED);

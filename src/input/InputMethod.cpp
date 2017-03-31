@@ -12,4 +12,6 @@ InputMethod::~InputMethod() {
 
 }
 
-
+void InputMethod::setBlockHolderToggler(bool toggle) {
+    toggleBlock = toggle;
+}

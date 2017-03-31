@@ -13,24 +13,30 @@
 
 class ShooterSystem : public RobotSystem {
 public:
-	ShooterSystem(std::shared_ptr<InputMethod> input);
-	virtual ~ShooterSystem();
-	virtual void run();
-	virtual void stopAllMotors();
-	void spinAll();
-	void moveAgitator(float speed);
-	void spinMotors(float speed);
-	const static char *NAME;
-	static constexpr float LOAD_SPEED = 0.5;
-	static constexpr float SHOOT_SPEED = 0.8;
+    ShooterSystem(std::shared_ptr<InputMethod> input);
+    virtual ~ShooterSystem();
+    virtual void run();
+    virtual void stopAllMotors();
+    void spinAll();
+    void moveAgitator(float speed);
+    void spinShooter(float speed);
+    void spinFeeder(float speed);
+    void spinMotors();
+    const static char *NAME;
+    static constexpr float LOAD_SPEED = 0.5;
+    static constexpr float SHOOT_SPEED = 0.8;
+    static constexpr float FEEDER_SPEED = 1;
 private:
 #ifndef TESTING
-	std::unique_ptr<Spark> motorLeft;
-	std::unique_ptr<Spark> motorRight;
-	std::unique_ptr<Victor> agitator;
+    std::unique_ptr<Spark> shooter;
+    std::unique_ptr<Spark> feeder;
+    std::unique_ptr<Victor> agitator;
 #endif
-	std::unique_ptr<Toggler> shooterToggler;
-	bool shouldShoot;
+    std::unique_ptr<Toggler> shooterToggler;
+    bool shouldShoot;
+    float shootSpeed;
+    bool prevIncP;
+    bool prevDecP;
 };
 
 #endif

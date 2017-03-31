@@ -1,5 +1,9 @@
 #include "GearboxSystem.h"
 
+#ifdef TESTING
+#include "../../test/TestInputMethod.h"
+#endif
+
 const char *GearboxSystem::NAME = "GEARBOXSYSTEM";
 
 /**
@@ -7,27 +11,28 @@ const char *GearboxSystem::NAME = "GEARBOXSYSTEM";
  *
  * @param input the input method to set.
  */
-GearboxSystem::GearboxSystem(std::shared_ptr<InputMethod> input) : RobotSystem(input) {
+GearboxSystem::GearboxSystem(std::shared_ptr<InputMethod> input) : RobotSystem(input), stop(false) {
 
-	blockToggler = std::make_unique<Toggler>();
-	leverToggler = std::make_unique<Toggler>();
+    blockToggler = std::make_unique<Toggler>();
+    leverToggler = std::make_unique<Toggler>();
 
 #ifndef TESTING
-	lever = std::make_unique<Spark>(RobotMap::LEVER);
-	block = std::make_unique<Spark>(RobotMap::BLOCK_HOLDER);
+    lever = std::make_unique<Spark>(RobotMap::LEVER);
+    block = std::make_unique<Spark>(RobotMap::BLOCK_HOLDER);
     limitSwitch = std::make_unique<DigitalInput>(RobotMap::GEAR_LEVER_LIMIT_SWITCH);
+
 #endif
 
-	leverSystem = new struct timedMoveSystem(LEVER_TIME);
-	blockSystem = new struct timedMoveSystem(BLOCK_TIME);
+    leverSystem = new struct timedMoveSystem(LEVER_TIME);
+    blockSystem = new struct timedMoveSystem(BLOCK_TIME);
 }
 
 /**
  * Destructor that deletes the two systems.
  */
 GearboxSystem::~GearboxSystem() {
-	delete leverSystem;
-	delete blockSystem;
+    delete leverSystem;
+    delete blockSystem;
 }
 
 /**
@@ -38,7 +43,7 @@ GearboxSystem::~GearboxSystem() {
  * @return the speed with a new sign.
  */
 double GearboxSystem::getSpeedFromInversion(double speed, bool invert) {
-	return invert ? -speed : speed;
+    return invert ? -speed : speed;
 }
 
 /** 
@@ -59,44 +64,51 @@ struct timedMoveSystem *GearboxSystem::getBlockHolderSystem() {
     return blockSystem;
 }
 
+std::shared_ptr<InputMethod> GearboxSystem::getInput() {
+    return input;
+}
+
 /**
  * function that is continuously called by the teleopexecutor.
  */
 void GearboxSystem::run() {
 #ifndef TESTING
-    bool stop = limitSwitch->Get();
+    stop = limitSwitch->Get();
+#else
+    stop = static_cast<TestInputMethod*>(input.get())->getLimitSwitchStatus();
 #endif
     /** Gets the toggle input from input. */
-	bool blockToggle = input->toggleBlockHolder();
-	bool leverToggle = input->toggleLever();
+    bool blockToggle = input->toggleBlockHolder();
+    bool leverToggle = input->toggleLever();
 
     /** Do not toggle if either system is currently moving. */
-    if(!leverSystem->moving) {
-	    leverSystem->checkToggle(leverToggler->toggled(leverToggle));
+    if (!leverSystem->moving) {
+        leverSystem->checkToggle(leverToggler->toggled(leverToggle));
     }
 
-    if(!blockSystem->moving) {
-	    blockSystem->checkToggle(blockToggler->toggled(blockToggle));
+    if (!blockSystem->moving) {
+        blockSystem->checkToggle(blockToggler->toggled(blockToggle));
     }
 
 
     //spins motor if it should move and inverts based on toggle direction.
-	if(leverSystem->shouldMove() && !(leverSystem->direction && !stop)) {
-		spinLeverMotor(getSpeedFromInversion(LEVER_SPEED, leverSystem->direction));
-	} else {
+    if (leverSystem->shouldMove() && !(leverSystem->direction && !stop)) {
+        spinLeverMotor(getSpeedFromInversion(LEVER_SPEED, leverSystem->direction));
+    } else {
         //reset the timer and stop the motor.
-		leverSystem->reset();
+        leverSystem->reset();
         spinLeverMotor(0);
-	}
+    }
 
-	if(blockSystem->shouldMove()) {
-		spinBlockMotor(getSpeedFromInversion(BLOCK_SPEED, blockSystem->direction));
-	} else {
-		blockSystem->reset();
+    if (blockSystem->shouldMove()) {
+        spinBlockMotor(getSpeedFromInversion(BLOCK_SPEED, blockSystem->direction));
+    } else {
+        blockSystem->reset();
         spinBlockMotor(0);
-	}
-	
+    }
+
 }
+
 
 /**
  * Sets the gear holder motor to speed.
@@ -105,7 +117,7 @@ void GearboxSystem::run() {
  */
 void GearboxSystem::spinBlockMotor(float speed) {
 #ifndef TESTING
-	block->Set(speed);
+    block->Set(speed);
 #else
     blockSpeed = speed;
 #endif
@@ -118,7 +130,7 @@ void GearboxSystem::spinBlockMotor(float speed) {
  */
 void GearboxSystem::spinLeverMotor(float speed) {
 #ifndef TESTING
-	lever->Set(speed);
+    lever->Set(speed);
 #else
     leverSpeed = speed;
 #endif
@@ -129,8 +141,8 @@ void GearboxSystem::spinLeverMotor(float speed) {
  */
 void GearboxSystem::stopAllMotors() {
 #ifndef TESTING
-	block->Set(0);
-	lever->Set(0);
+    block->Set(0);
+    lever->Set(0);
 #endif
     blockSpeed = 0;
     leverSpeed = 0;

@@ -10,6 +10,7 @@
 #include "systems/IntakeSystem.h"
 #include "systems/GearboxSystem.h"
 #include "systems/ShooterSystem.h"
+#include "systems/LiftSystem.h"
 #include "input/XboxController.h"
 #include "input/InputMethod.h"
 #include <memory>
@@ -17,14 +18,14 @@
 
 class Environment {
 public:
-	Environment();
-	~Environment();
-	std::map<std::string, std::shared_ptr<RobotSystem>>& getSystems();
-	void stopAll();
+    Environment();
+    ~Environment();
+    std::map<std::string, std::shared_ptr<RobotSystem>>& getSystems();
+    void stopAll();
 
 private:
-	std::map<std::string, std::shared_ptr<RobotSystem>> systems;
-	std::shared_ptr<InputMethod> input;
+    std::map<std::string, std::shared_ptr<RobotSystem>> systems;
+    std::shared_ptr<InputMethod> input;
 };
 
 

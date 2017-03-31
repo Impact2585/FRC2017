@@ -9,17 +9,17 @@
 
 class DriveSystemTest : public Test::Suite {
 public:
-	DriveSystemTest(); 
-	~DriveSystemTest();
-	void runDrive();
+    DriveSystemTest(); 
+    ~DriveSystemTest();
+    void runDrive();
 private:
-	void testInit();
-	void testRamp();
-	float round2(float toRonud);
-	std::unique_ptr<DriveSystem> drive;
-	std::shared_ptr<InputMethod> input;
-	float currRampForward;
-	float rotateValue;
+    void testInit();
+    void testRamp();
+    float round2(float toRonud);
+    std::unique_ptr<DriveSystem> drive;
+    std::shared_ptr<InputMethod> input;
+    float currRampForward;
+    float rotateValue;
 };
 
 #endif

@@ -7,6 +7,7 @@
 #include <sys/socket.h>
 #include "systems/DriveSystem.h"
 #include <IterativeRobot.h>
+//#include <CameraServer>
 #include "executors/Executor.h"
 #include "tasks/TaskChain.h"
 #include "tasks/taskchains/CenterTimedGearDelivery.h"
@@ -18,19 +19,20 @@
 
 class Robot : public frc::IterativeRobot {
 public:
-	Robot();
-	~Robot();
-	void RobotInit() override;
-	void AutonomousInit() override;
-	void AutonomousPeriodic() override;
-	void TeleopInit() override;
-	void TeleopPeriodic() override;
-	void DisabledInit() override;
-	void DisabledPeriodic() override;
+    Robot();
+    ~Robot();
+    void RobotInit() override;
+    void AutonomousInit() override;
+    void AutonomousPeriodic() override;
+    void TeleopInit() override;
+    void TeleopPeriodic() override;
+    void DisabledInit() override;
+    void DisabledPeriodic() override;
 private:
-	std::shared_ptr<Environment> environ;
-	std::unique_ptr<Executor> executor;
-	SendableChooser<std::shared_ptr<TaskChain>> autonChoice;	
+    static void visionThread();
+    std::shared_ptr<Environment> environ;
+    std::unique_ptr<Executor> executor;
+    SendableChooser<std::shared_ptr<TaskChain>> autonChoice;	
     std::shared_ptr<TaskChain> centerGear;
 };
 

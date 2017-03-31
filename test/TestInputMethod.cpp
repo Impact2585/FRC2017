@@ -1,6 +1,6 @@
 #include "TestInputMethod.h"
 
-TestInputMethod::TestInputMethod() : desiredForwardVal(0), finished(false) {
+TestInputMethod::TestInputMethod() : desiredForwardVal(0), finished(false), limitSwitchStatus(false) {
 
 }
 
@@ -9,27 +9,27 @@ TestInputMethod::~TestInputMethod() {
 }
 
 double TestInputMethod::getForwardDistance() {
-	return desiredForwardVal;
+    return desiredForwardVal;
 }
 
 double TestInputMethod::getSidewaysDistance() {
-	return 0;
+    return 0;
 }
 
 bool TestInputMethod::toggleDrive() {
-	return false;
+    return false;
 }
 
 bool TestInputMethod::shootToggle() {
-	return false;
+    return false;
 }
 
 bool TestInputMethod::intake() {
-	return false;
+    return false;
 }
 
 bool TestInputMethod::outtake() {
-	return false;
+    return false;
 }
 
 bool TestInputMethod::toggleBlockHolder() {
@@ -49,7 +49,7 @@ void TestInputMethod::setBlockHolderToggle(bool toggle) {
 }
 
 void TestInputMethod::setDesiredForward(float val) {
-	desiredForwardVal = val;
+    desiredForwardVal = val;
 }
 
 void TestInputMethod::setFinished(bool finished) {
@@ -58,4 +58,16 @@ void TestInputMethod::setFinished(bool finished) {
 
 bool TestInputMethod::isFinished() {
     return finished;
+}
+
+bool TestInputMethod::shiftGears() {
+    return false;
+}
+
+bool TestInputMethod::getLimitSwitchStatus() {
+    return limitSwitchStatus;
+}
+
+void TestInputMethod::setLimitSwitchStatus(bool status) {
+    limitSwitchStatus = status;
 }

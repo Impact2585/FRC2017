@@ -17,7 +17,7 @@ TeleopExecutor::~TeleopExecutor() {
  * This should be called periodically in Robot.cpp during teleop.
  */
 void TeleopExecutor::execute() {
-	for(auto& entry : systems) {
-		(entry.second)->run();
-	}
+    for(auto& entry : systems) {
+        (entry.second)->run();
+    }
 }

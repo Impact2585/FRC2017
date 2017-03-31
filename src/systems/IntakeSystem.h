@@ -5,7 +5,7 @@
 #include "RobotSystem.h"
 
 #ifndef TESTING
-#include <Spark.h>
+#include <Victor.h>
 #endif
 
 #include "../RobotMap.h"
@@ -14,17 +14,17 @@
 
 class IntakeSystem : public RobotSystem {
 public:
-	IntakeSystem(std::shared_ptr<InputMethod> input);
-	virtual ~IntakeSystem();
-	virtual void run();
-	virtual void stopAllMotors();
-	void spinMotor(float speed);
-	static constexpr float INTAKE_SPEED = 1;
-	static const char *NAME;
+    IntakeSystem(std::shared_ptr<InputMethod> input);
+    virtual ~IntakeSystem();
+    virtual void run();
+    virtual void stopAllMotors();
+    void spinMotor(float speed);
+    static constexpr float INTAKE_SPEED = 1;
+    static const char *NAME;
 private:
 
 #ifndef TESTING
-	std::unique_ptr<Spark> motor;
+    std::unique_ptr<Victor> motor;
 #endif
 
 };

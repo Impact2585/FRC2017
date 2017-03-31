@@ -12,15 +12,15 @@ const char *DriveSystem::NAME = "DRIVESYSTEM";
  *
  * @param input the pointer to the InputMethod to use.
  */
-DriveSystem::DriveSystem(std::shared_ptr<InputMethod> input) : RobotSystem(input), currentRampForward(0) {
+DriveSystem::DriveSystem(std::shared_ptr<InputMethod> input) : RobotSystem(input), currentRampForward(0), prevGearState(false) {
 #ifndef TESTING
-	Victor *frontLeft = new Victor(RobotMap::FRONT_LEFT_DRIVE);
-	Talon *backLeft = new Talon(RobotMap::REAR_LEFT_DRIVE);
-	frontLeft->SetInverted(true);
-	backLeft->SetInverted(true);
-	drivetrain = std::make_unique<RobotDrive>(frontLeft, backLeft, new Victor(RobotMap::FRONT_RIGHT_DRIVE), new Talon(RobotMap::REAR_RIGHT_DRIVE));
+    leftDrive = new Victor(RobotMap::LEFT_DRIVE);
+    leftDrive->SetInverted(true);
+    drivetrain = std::make_unique<RobotDrive>(leftDrive, new Victor(RobotMap::RIGHT_DRIVE));
+    ballShifter = std::make_unique<Solenoid>(RobotMap::BALL_SHIFTER_PORT);
 #endif
-	invertDriveToggler = std::make_unique<Toggler>();
+    invertDriveToggler = std::make_unique<Toggler>();
+    gearShiftToggler = std::make_unique<Toggler>();
 }
 
 DriveSystem::~DriveSystem() {
@@ -36,7 +36,7 @@ DriveSystem::~DriveSystem() {
  */
 void DriveSystem::drive(double forward, double rotation, bool squared) {
 #ifndef TESTING
-	drivetrain->ArcadeDrive(forward, rotation, squared);
+    drivetrain->ArcadeDrive(forward, rotation, squared);
 #endif
 }
 
@@ -49,14 +49,14 @@ void DriveSystem::drive(double forward, double rotation, bool squared) {
  * @param squared whether this should square the rotation value.
  */
 void DriveSystem::arcadeControl(double desiredForwardValue, double rotateValue, bool squared) {
-	if(desiredForwardValue != 0) {
-		double change = desiredForwardValue - currentRampForward;
-		//increments by ramp multiplier or sets it to the desiredRampForward if they are too close
-		currentRampForward = absval(change) > MIN_INCREMENT ? currentRampForward + change * RAMP : desiredForwardValue;
-	} else {
-		currentRampForward = 0;
-	}
-	drive(currentRampForward, rotateValue, squared);
+    if(desiredForwardValue != 0) {
+        double change = desiredForwardValue - currentRampForward;
+        //increments by ramp multiplier or sets it to the desiredRampForward if they are too close
+        currentRampForward = absval(change) > MIN_INCREMENT ? currentRampForward + change * RAMP : desiredForwardValue;
+    } else {
+        currentRampForward = 0;
+    }
+    drive(currentRampForward, rotateValue, squared);
 }
 
 /**
@@ -65,27 +65,43 @@ void DriveSystem::arcadeControl(double desiredForwardValue, double rotateValue, 
  * @param val the reference of the value to set.
  */
 void DriveSystem::modifyIfInDeadzone(double& val) {
-	val = absval(val) <= DEADZONE ? 0 : val;
+    val = absval(val) <= DEADZONE ? 0 : val;
 }
 
+void DriveSystem::shiftGears(bool on) {
+#ifndef TESTING
+    ballShifter->Set(on);
+#endif
+}
 /**
  * Called by the TeleopExecutor.
  * Gets input from the inputmethod and drives based on that input.
  */
 void DriveSystem::run() {
-	/** Gets all the input values. */
-	double desiredForwardValue = input->getForwardDistance();
-	double desiredRotateValue = input->getSidewaysDistance();
-	bool shouldInvert = input->toggleDrive();
-	/** Inverts if the button is pressed. */
-	if(invertDriveToggler->checkToggle(shouldInvert))
-		desiredForwardValue *= -1;
+    /** Gets all the input values. */
+    double desiredForwardValue = input->getForwardDistance();
+    double desiredRotateValue = input->getSidewaysDistance();
+    bool shouldInvert = input->toggleDrive();
+    bool shouldShiftGear = input->shiftGears();
+
+    bool gear = gearShiftToggler->checkToggle(shouldShiftGear);
+
+    if(gear != prevGearState) {
+        shiftGears(gear);
+    }
+
+    /** Inverts if the button is pressed. */
+    if(invertDriveToggler->checkToggle(shouldInvert))
+        desiredForwardValue *= -1;
 
 
-	modifyIfInDeadzone(desiredForwardValue);
-	modifyIfInDeadzone(desiredRotateValue);
-	/** Squares rotation. */
-	arcadeControl(desiredForwardValue, desiredRotateValue, true);
+    modifyIfInDeadzone(desiredForwardValue);
+    modifyIfInDeadzone(desiredRotateValue);
+
+    /** Squares rotation. */
+    arcadeControl(desiredForwardValue, desiredRotateValue, true);
+
+    prevGearState = gear;
 }
 
 /**
@@ -94,11 +110,11 @@ void DriveSystem::run() {
  * @return the current ramp forward.
  */
 double DriveSystem::getCurrentRampForward() {
-	return currentRampForward;
+    return currentRampForward;
 }
 /**
  * Stops the drivetrain.
  */
 void DriveSystem::stopAllMotors() {
-	drive(0, 0, false);
+    drive(0, 0, false);
 }

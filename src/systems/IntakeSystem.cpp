@@ -9,7 +9,7 @@ const char *IntakeSystem::NAME = "INTAKESYSTEM";
  */
 IntakeSystem::IntakeSystem(std::shared_ptr<InputMethod> input) : RobotSystem(input) {
 #ifndef TESTING
-	motor= std::make_unique<Spark>(RobotMap::INTAKE_MOTOR);
+    motor= std::make_unique<Victor>(RobotMap::INTAKE_MOTOR);
 #endif
 
 }
@@ -22,22 +22,22 @@ IntakeSystem::~IntakeSystem() {
  * Method that is continuously run from the teleopexecutor.
  */
 void IntakeSystem::run() {
-	bool outtake = input->outtake();
-	bool intake = input->intake();
-	if(intake && !outtake) {
-		spinMotor(INTAKE_SPEED);
-	} else if(outtake && !intake) {
-		spinMotor(-INTAKE_SPEED);
-	} else {
-		spinMotor(0);
-	}
+    bool outtake = input->outtake();
+    bool intake = input->intake();
+    if(intake && !outtake) {
+        spinMotor(INTAKE_SPEED);
+    } else if(outtake && !intake) {
+        spinMotor(-INTAKE_SPEED);
+    } else {
+        spinMotor(0);
+    }
 }
 
 /**
  * Stops the intake motor.
  */
 void IntakeSystem::stopAllMotors() {
-	spinMotor(0);
+    spinMotor(0);
 }
 
 /**
@@ -47,6 +47,6 @@ void IntakeSystem::stopAllMotors() {
  */
 void IntakeSystem::spinMotor(float speed) {
 #ifndef TESTING
-	motor->Set(speed);
+    motor->Set(speed);
 #endif
 }

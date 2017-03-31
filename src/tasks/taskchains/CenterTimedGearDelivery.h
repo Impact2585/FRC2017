@@ -1,6 +1,7 @@
 #ifndef SRC_TASKS_TASKCHAINS_CENTERTIMEDGEARDELIVERY_H_
 #define SRC_TASKS_TASKCHAINS_CENTERTIMEDGEARDELIVERY_H_
 #include "../TaskChain.h"
+#include "../ReleaseGearTask.h"
 #include "../TimedDriveTask.h"
 
 class CenterTimedGearDelivery : public TaskChain {

@@ -1,9 +1,6 @@
 /*
- * RobotSystem.h
- *
- *  Created on: Jan 22, 2017
- *      Author: joshua
- */
+* RobotSystem.h
+*/
 
 #ifndef SRC_SYSTEMS_ROBOTSYSTEM_H_
 #define SRC_SYSTEMS_ROBOTSYSTEM_H_
@@ -12,12 +9,12 @@
 
 class RobotSystem {
 public:
-	RobotSystem(std::shared_ptr<InputMethod> input);
-	virtual ~RobotSystem();
-	virtual void run() = 0;
-	virtual void stopAllMotors() = 0;
+    RobotSystem(std::shared_ptr<InputMethod> input);
+    virtual ~RobotSystem();
+    virtual void run() = 0;
+    virtual void stopAllMotors() = 0;
 protected:
-	std::shared_ptr<InputMethod> input;
+    std::shared_ptr<InputMethod> input;
 };
 
 
