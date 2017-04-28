@@ -24,7 +24,7 @@ public:
     
     //digital io
     static constexpr int GEAR_LEVER_LIMIT_SWITCH = 6;
-    static constexpr int BALL_SHIFTER_PORT = 7;
+    static constexpr int BALL_SHIFTER_PORT = 3;
 };
 
 #endif

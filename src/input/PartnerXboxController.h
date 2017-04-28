@@ -31,6 +31,9 @@ public:
 
     virtual bool increaseShootSpeed();
     virtual bool decreaseShootSpeed();
+
+    virtual bool incFeederSpeed();
+    virtual bool decFeederSpeed();
 private:
     std::unique_ptr<Joystick> joystick1;
     std::unique_ptr<Joystick> joystick2;

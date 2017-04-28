@@ -37,6 +37,11 @@ private:
     float shootSpeed;
     bool prevIncP;
     bool prevDecP;
+
+    bool prevFedInc;
+    bool prevFedDec;
+
+    float feederSpeed;
 };
 
 #endif

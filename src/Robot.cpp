@@ -10,6 +10,11 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
+/**
+ * std::lock_guard m
+ * m.lock();
+ * m.unlock();
+ */
 
 Robot::Robot() {
     environ = std::make_shared<Environment>();
@@ -23,7 +28,7 @@ Robot::~Robot() {
 
 void Robot::visionThread() {
     cs::UsbCamera cam = CameraServer::GetInstance()->StartAutomaticCapture();
-    cam.SetResolution(640,480);
+    cam.SetResolution(320, 240);
     cs::CvSink sink = CameraServer::GetInstance()->GetVideo();
     cs::CvSource output = CameraServer::GetInstance()->PutVideo("Aquire", 640, 480);
 
@@ -43,8 +48,8 @@ void Robot::visionThread() {
 }
 
 void Robot::RobotInit() {
-    std::thread vision(visionThread);
-    vision.detach();
+    //std::thread vision(visionThread);
+    //vision.detach();
     autonChoice.AddDefault("CenterTimedDrive", centerGear);
     frc::SmartDashboard::PutData("Auton choices", &autonChoice);
 }

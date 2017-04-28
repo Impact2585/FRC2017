@@ -62,18 +62,25 @@ bool PartnerXboxController::shiftGears() {
 }
 
 bool PartnerXboxController::shouldWind() {
-    return joystick2->GetRawButton(XboxConstants::RIGHT_BUMPER);
+    return joystick1->GetRawButton(XboxConstants::RIGHT_BUMPER);
 }
 
 bool PartnerXboxController::shouldUnwind() {
-    return joystick2->GetRawButton(XboxConstants::LEFT_BUMPER);
+    return joystick1->GetRawButton(XboxConstants::LEFT_BUMPER);
 }
 
 bool PartnerXboxController::increaseShootSpeed() {
-    return false;
+    return joystick2->GetRawButton(XboxConstants::LEFT_BUMPER);
 }
 
 bool PartnerXboxController::decreaseShootSpeed() {
-    return false;
+    return joystick2->GetRawButton(XboxConstants::RIGHT_BUMPER);
 }
 
+bool PartnerXboxController::incFeederSpeed() {
+    return joystick2->GetRawAxis(XboxConstants::LEFT_TRIGGER) > 0;
+}
+
+bool PartnerXboxController::decFeederSpeed() {
+    return joystick2->GetRawAxis(XboxConstants::RIGHT_TRIGGER) > 0;
+}

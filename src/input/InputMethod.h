@@ -33,6 +33,8 @@ public:
 
     virtual void setBlockHolderToggler(bool toggle);
 
+    virtual bool incFeederSpeed() = 0;
+    virtual bool decFeederSpeed() = 0;
 protected:
     bool toggleBlock;
 };

@@ -8,9 +8,13 @@ CenterTimedGearDelivery::~CenterTimedGearDelivery() {
 
 }
 
+std::shared_ptr<RobotSystem> CenterTimedGearDelivery::getSystem(std::string name) {
+    return environ->getSystems().at(name);
+}
+
 void CenterTimedGearDelivery::initializeTasks() {
-    addTask(std::make_shared<TimedDriveTask>(environ->getSystems().at(DriveSystem::NAME), 2, true));
-    addTask(std::make_shared<ReleaseGearTask>(environ->getSystems().at(GearboxSystem::NAME)));
-    addTask(std::make_shared<TimedDriveTask>(environ->getSystems().at(DriveSystem::NAME), 2, false));
+    addTask(std::make_shared<TimedDriveTask>(getSystem(DriveSystem::NAME), 0.7, 0, 2));
+    //addTask(std::make_shared<ReleaseGearTask>(getSystem(GearboxSystem::NAME)));
+    addTask(std::make_shared<WaitTask>(2));
     currTask = tasks.begin();
 }

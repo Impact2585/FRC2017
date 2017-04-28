@@ -2,7 +2,7 @@
 
 const char *ShooterSystem::NAME = "SHOOTERSYSTEM";
 
-ShooterSystem::ShooterSystem(std::shared_ptr<InputMethod> input) : RobotSystem(input), shouldShoot(false), shootSpeed(0.5), prevIncP(false), prevDecP(false) {
+ShooterSystem::ShooterSystem(std::shared_ptr<InputMethod> input) : RobotSystem(input), shouldShoot(false), shootSpeed(0.5), prevIncP(false), prevDecP(false), prevFedInc(false), prevFedDec(false), feederSpeed(0.5) {
 #ifndef TESTING
     shooter = std::make_unique<Spark>(RobotMap::SHOOTER);
     feeder = std::make_unique<Spark>(RobotMap::FEEDER);
@@ -21,10 +21,19 @@ void ShooterSystem::run() {
     bool incSpeed = input->increaseShootSpeed();
     bool decSpeed = input->decreaseShootSpeed();
 
-    if(incSpeed && shootSpeed != 1 && !prevIncP) {
+    bool incFeederSpeed = input->incFeederSpeed();
+    bool decFeederSpeed = input->decFeederSpeed();
+
+    if(incSpeed && shootSpeed <  1 && !prevIncP) {
         shootSpeed += 0.1;
-    } else if(decSpeed && shootSpeed != 0 && !prevDecP) {
+    } else if(decSpeed && shootSpeed >  0 && !prevDecP) {
         shootSpeed -= 0.1;
+    }
+
+    if(incFeederSpeed && feederSpeed < 1 && !prevFedInc) {
+        feederSpeed += 0.1;
+    } else if(decFeederSpeed && feederSpeed > 0 && !prevFedDec) {
+        feederSpeed -= 0.1;
     }
 
     if(shooterToggler->toggled(shouldToggle)) {
@@ -39,6 +48,9 @@ void ShooterSystem::run() {
 
     prevIncP = incSpeed;
     prevDecP = decSpeed;
+
+    prevFedInc = incFeederSpeed;
+    prevFedDec = decFeederSpeed;
 }
 
 void ShooterSystem::spinShooter(float speed) {
@@ -63,7 +75,7 @@ void ShooterSystem::moveAgitator(float speed) {
 void ShooterSystem::spinMotors() {
 #ifndef TESTING
     shooter->Set(shootSpeed);
-    feeder->Set(FEEDER_SPEED);
+    feeder->Set(feederSpeed);
 #endif
 }
 

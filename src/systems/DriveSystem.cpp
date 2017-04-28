@@ -86,7 +86,7 @@ void DriveSystem::run() {
 
     bool gear = gearShiftToggler->checkToggle(shouldShiftGear);
 
-    if(gear != prevGearState) {
+    if(gear && gear != prevGearState) {
         shiftGears(gear);
     }
 

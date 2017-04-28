@@ -11,7 +11,7 @@
 #include "systems/GearboxSystem.h"
 #include "systems/ShooterSystem.h"
 #include "systems/LiftSystem.h"
-#include "input/XboxController.h"
+#include "input/PartnerXboxController.h"
 #include "input/InputMethod.h"
 #include <memory>
 #include <map>

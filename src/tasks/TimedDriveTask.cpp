@@ -7,13 +7,12 @@
  * @param timeDriving the time to drive in seconds.
  * @param direction true if forward, false if backwards.
  */
-TimedDriveTask::TimedDriveTask(std::shared_ptr<RobotSystem> system, double timeDriving, bool direction) : drive(system), timeToDrive(timeDriving), timeElapsed(0) {
+TimedDriveTask::TimedDriveTask(std::shared_ptr<RobotSystem> system, float forwardVal, float rotateVal, double timeDriving) : drive(system), forward(forwardVal), rotate(rotateVal), timeToDrive(timeDriving), timeElapsed(0) {
 #ifndef TESTING
     timer = std::make_unique<Timer>();
 #else 
     start = std::clock();
 #endif
-    speed = direction ? 1 : -1;
 }
 
 TimedDriveTask::~TimedDriveTask() {
@@ -33,7 +32,7 @@ void TimedDriveTask::onStart() {
  * Updates time elapsed and drives in the direction specified.
  */
 void TimedDriveTask::execute() {
-    static_cast<DriveSystem*>(drive.get())->arcadeControl(speed, 0, false);
+    static_cast<DriveSystem*>(drive.get())->arcadeControl(forward, rotate, false);
 #ifndef TESTING
     timeElapsed = timer->Get();
 #else
